@@ -1,0 +1,32 @@
+-- Remove all local branch which merged
+git branch --merged | grep -v "\*" | xargs git branch -d 
+
+-- Remove all branch which don't reference to local
+git remote prune origin
+
+-- Git add . => exist file, new file
+git add .
+
+-- Git add -u . => exist file, deleted file.
+git add -u .
+
+-- Git add -A . => exist file, deleted file, new file
+git add -A .
+
+-- Revert code.
+-- Have just change but haven't still add
+git clean -df
+git checkout -- .
+
+-- added but didn't commit
+git reset HEAD 
+git clean -df
+
+-- commited but din't push
+git reset HEAD~1 --hard
+
+-- commited and pushed
+git revert HEAD~1..HEAD
+
+
+
