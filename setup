@@ -12,6 +12,7 @@ brew link macvim
 # Install pip python
 sudo easy_install pip
 
-
+# Install Vundle
+git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 
 
