@@ -1,0 +1,12 @@
+# Install Item2
+
+# Install Git
+brew install git
+
+# Install Vim and MacVim
+Add to .bash_profile: export PATH=/usr/local/bin:$PATH
+brew update
+brew install vim && brew install macvim
+brew link macvim
+
+
