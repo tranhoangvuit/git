@@ -21,3 +21,16 @@ $ alias ctags="`brew --prefix`/bin/ctags"
 #try again!
 ctags -R --exclude=.git --exclude=log *
 
+# Install powerline font
+https://github.com/powerline/fonts
+
+# Install template-base16
+https://github.com/chriskempson/base16-vim
+
+# Customize iterm2
+– Solarized theme: http://ethanschoonover.com/solarized
+– .bash_profile file: https://raw.githubusercontent.com/nicolashery/mac-dev-setup/master/.bash_profile
+– .bash_prompt file: https://raw.githubusercontent.com/nicolashery/mac-dev-setup/master/.bash_prompt
+– .aliases file: https://raw.githubusercontent.com/nicolashery/mac-dev-setup/master/.aliases
+– .gitconfig file: https://raw.githubusercontent.com/nicolashery/mac-dev-setup/master/.gitconfig
+
