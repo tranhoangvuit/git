@@ -15,4 +15,9 @@ sudo easy_install pip
 # Install Vundle
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 
+# Install CTags
+$ brew install ctags
+$ alias ctags="`brew --prefix`/bin/ctags"
+#try again!
+ctags -R --exclude=.git --exclude=log *
 
