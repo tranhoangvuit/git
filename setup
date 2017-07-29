@@ -9,4 +9,9 @@ brew update
 brew install vim && brew install macvim
 brew link macvim
 
+# Install pip python
+sudo easy_install pip
+
+
+
 
