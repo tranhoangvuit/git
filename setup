@@ -34,6 +34,11 @@ https://github.com/chriskempson/base16-vim
 – .aliases file: https://raw.githubusercontent.com/nicolashery/mac-dev-setup/master/.aliases
 – .gitconfig file: https://raw.githubusercontent.com/nicolashery/mac-dev-setup/master/.gitconfig
 
+# Install cmake
+brew install cmake
+
+# Install YouCompleteMe
+
 # Add ngrok
 Download ngrok and mv to Applications
 # cd into your local bin directory
@@ -41,3 +46,4 @@ cd /usr/local/bin
 
 # create symlink
 ln -s /Applications/ngrok ngrok
+
