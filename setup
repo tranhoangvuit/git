@@ -39,6 +39,9 @@ brew install cmake
 
 # Install YouCompleteMe
 
+# Install sliver search for ack
+brew install the_silver_searcher
+
 # Add ngrok
 Download ngrok and mv to Applications
 # cd into your local bin directory
