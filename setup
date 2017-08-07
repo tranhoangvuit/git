@@ -19,13 +19,14 @@ sudo easy_install pip
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 
 # Install CTags
-$ brew install ctags
-$ alias ctags="`brew --prefix`/bin/ctags"
+brew install ctags
+alias ctags="`brew --prefix`/bin/ctags"
 #try again!
 ctags -R --exclude=.git --exclude=log *
 
 # Install powerline font
-https://github.com/powerline/fonts
+brew tap caskroom/fonts                  # you only have to do this once!
+brew cask install font-inconsolata
 
 # Install template-base16
 https://github.com/chriskempson/base16-vim
