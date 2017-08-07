@@ -34,6 +34,9 @@ Plugin 'majutsushi/tagbar'
 Plugin 'marijnh/tern_for_vim'
 Plugin 'jiangmiao/auto-pairs'
 Plugin 'chriskempson/base16-vim'
+Plugin 'airblade/vim-gitgutter'
+Plugin 'valloric/youcompleteme'
+Plugin 'scrooloose/nerdcommenter'
 
 call vundle#end()
 " .vimrc commands
@@ -43,7 +46,7 @@ filetype plugin indent on
 syntax on
 set background=dark
 colorscheme base16-ocean 
-set guifont=Inconsolata-dz\ for\ Powerline:h12
+set guifont=Inconsolata:h16
 "runtime solarized.vimrc
 
 scriptencoding utf-8
