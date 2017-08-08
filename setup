@@ -56,3 +56,10 @@ cd /usr/local/bin
 # create symlink
 ln -s /Applications/ngrok ngrok
 
+# Install meld
+brew cask install meld
+
+# Add meld to .gitconfig
+[merge]
+  tool = meld
+
