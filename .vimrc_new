@@ -1,0 +1,144 @@
+set nocompatible
+filetype off
+
+set rtp+=~/.vim/bundle/Vundle.vim/
+call vundle#begin()
+
+" let Vundle manage Vundle
+Plugin 'gmarik/Vundle.vim'
+
+" Vundle bundles
+Plugin 'altercation/vim-colors-solarized'
+Plugin 'scrooloose/nerdtree'
+Plugin 'scrooloose/nerdcommenter'
+Plugin 'scrooloose/syntastic'
+Plugin 'mileszs/ack.vim'
+Plugin 'junegunn/fzf.vim'
+Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-rails'
+Plugin 'groenewege/vim-less'
+Plugin 'fatih/vim-go'
+Plugin 'pangloss/vim-javascript'
+Plugin 'itchyny/lightline.vim'
+Plugin 'majutsushi/tagbar'
+Plugin 'airblade/vim-gitgutter'
+Plugin 'valloric/youcompleteme'
+
+call vundle#end()
+" .vimrc commands
+filetype plugin indent on
+
+" Turn on syntax highlighting
+syntax on
+
+" Encoding
+set encoding=utf-8
+
+" Security
+set modelines=0
+
+set tabstop=2
+set shiftwidth=2
+set softtabstop=2
+set expandtab
+
+set scrolloff=3
+set autoindent
+set showmode
+set showcmd
+set hidden
+set wildmenu
+set wildmode=list:longest
+set visualbell
+set cursorline
+set ttyfast
+set ruler
+set backspace=indent,eol,start
+set laststatus=2
+set relativenumber
+set undofile
+set ignorecase
+set smartcase
+set gdefault
+set incsearch
+set showmatch
+set hlsearch
+
+" Move up/down editor lines
+nnoremap j gj
+nnoremap k gk
+
+set wrap
+set textwidth=79
+set formatoptions=qrn1
+"set colorcolumn=85
+
+set list
+set listchars=tab:\|\
+
+" For any plugins that use this, make their keymappings use comma
+let mapleader = ","
+let maplocalleader = ","
+
+" Colorscheme
+set background=dark
+colorscheme solarized
+set guifont=Inconsolata:h16
+let g:solarized_termcolors=256
+
+" FZF (replaces Ctrl-P, FuzzyFinder and Command-T)
+set rtp+=/usr/local/opt/fzf
+set rtp+=~/.fzf
+
+" Tell ack.vim to use ag (the Silver Searcher) instead
+let g:ackprg = 'ag --vimgrep'
+
+"Leader key
+nnoremap <leader>r :Tags<cr>
+nnoremap <leader>t :Files<cr>
+nnoremap <leader>a :Ag
+" Search in file
+nnoremap / /\v
+vnoremap / /\v
+" Ignore search
+nnoremap <leader><space> :noh<cr>
+nnoremap <leader>h :TagbarToggle<cr>
+
+" NerdTree setup
+nnoremap <leader>nt :NERDTreeToggle<cr>
+
+" Lightline
+let g:lightline = {
+\ 'colorscheme': 'wombat',
+\ 'active': {
+\   'left': [['mode', 'paste'], ['filename', 'modified']],
+\   'right': [['lineinfo'], ['percent'], ['readonly', 'linter_warnings', 'linter_errors', 'linter_ok']]
+\ },
+\ 'component_expand': {
+\   'linter_warnings': 'LightlineLinterWarnings',
+\   'linter_errors': 'LightlineLinterErrors',
+\   'linter_ok': 'LightlineLinterOK'
+\ },
+\ 'component_type': {
+\   'readonly': 'error',
+\   'linter_warnings': 'warning',
+\   'linter_errors': 'error'
+\ },
+\ }
+
+"Syntastic options
+let g:syntastic_javascript_checkers = ['jshint']
+let g:syntastic_python_checkers = ['flake8']
+let g:syntastic_python_flake8_args = '--ignore="E501,E302,E261,E701,E241,E126,E127,E128,W801"'
+let g:syntastic_error_symbol = '✗'
+let g:syntastic_warning_symbol = '!'
+" We redirect output of go build to a tmpdir
+let g:syntastic_go_go_build_args = "-o $TMPDIR"
+
+" Go modifications
+" Automatically run goimports to add imports post-save
+let g:go_fmt_command = "goimports"
+
+autocmd BufRead *_spec.rb syn keyword rubyRspec describe context it specify it_should_behave_like before after setup subject its shared_examples_for shared_context let
+highlight def link rubyRspec Function
