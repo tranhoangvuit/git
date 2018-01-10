@@ -24,6 +24,7 @@ Plugin 'itchyny/lightline.vim'
 Plugin 'majutsushi/tagbar'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'valloric/youcompleteme'
+Plugin 'yggdroot/indentline'
 
 call vundle#end()
 " .vimrc commands
@@ -56,7 +57,6 @@ set ttyfast
 set ruler
 set backspace=indent,eol,start
 set laststatus=2
-set relativenumber
 set undofile
 set ignorecase
 set smartcase
@@ -64,6 +64,7 @@ set gdefault
 set incsearch
 set showmatch
 set hlsearch
+set number
 
 " Move up/down editor lines
 nnoremap j gj
@@ -74,8 +75,8 @@ set textwidth=79
 set formatoptions=qrn1
 "set colorcolumn=85
 
-set list
-set listchars=tab:\|\
+"set list
+"set listchars=tab:\|\
 
 " For any plugins that use this, make their keymappings use comma
 let mapleader = ","
@@ -97,7 +98,7 @@ let g:ackprg = 'ag --vimgrep'
 "Leader key
 nnoremap <leader>r :Tags<cr>
 nnoremap <leader>t :Files<cr>
-nnoremap <leader>a :Ag
+nnoremap <leader>a :Ag 
 " Search in file
 nnoremap / /\v
 vnoremap / /\v
@@ -139,6 +140,13 @@ let g:syntastic_go_go_build_args = "-o $TMPDIR"
 " Go modifications
 " Automatically run goimports to add imports post-save
 let g:go_fmt_command = "goimports"
+
+" Indenline
+let g:indentLine_color_term = 239
+let g:indentLine_char = '¦'
+
+" Remove all trailing whitespace by pressing F5
+nnoremap <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
 
 autocmd BufRead *_spec.rb syn keyword rubyRspec describe context it specify it_should_behave_like before after setup subject its shared_examples_for shared_context let
 highlight def link rubyRspec Function
