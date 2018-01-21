@@ -65,6 +65,9 @@ set incsearch
 set showmatch
 set hlsearch
 set number
+set nobackup
+set nowritebackup
+set noswapfile
 
 " Move up/down editor lines
 nnoremap j gj
