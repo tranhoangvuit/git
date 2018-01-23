@@ -1,3 +1,7 @@
+[core]
+	excludesfile = /Users/austintran/.gitignore_global
+	editor = vim
+
 [alias]
   # Show verbose output about tags, branches or remotes
   tags = tag -l
