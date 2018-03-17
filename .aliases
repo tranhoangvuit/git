@@ -20,5 +20,5 @@ export LS_COLORS='no=00:fi=00:di=01;34:ln=01;36:pi=40;33:so=01;35:do=01;35:bd=40
 
 # Golang
 go test $(go list ./... | grep -v /vendor/)
-$ docker exec clubtruyen_web_c migrate -database postgres://clubtruyen:clubtruyen@172.18.0.2/clubtruyendev\?sslmode=disable -path db/migrate up
-$ docker exec clubtruyen_web_c migrate create -ext sql -dir db/seeds create_user
+docker exec toppo_web_c migrate -database postgres://toppo:toppo@172.18.0.2/toppo_test\?sslmode=disable -path db/migration up
+docker exec toppo_web_c migrate create -ext sql -dir db/seeds create_user
