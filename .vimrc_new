@@ -1,155 +1,203 @@
-set nocompatible
-filetype off
+" Specify a directory for plugins
+call plug#begin('~/.vim/plugged')
 
-set rtp+=~/.vim/bundle/Vundle.vim/
-call vundle#begin()
+" Intellisense engine for Vim8 & Neovim, full language server protocol support as VSCode
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" A tree explorer plugin for vim.
+Plug 'scrooloose/nerdtree'
 
-" let Vundle manage Vundle
-Plugin 'gmarik/Vundle.vim'
+" A plugin of NERDTree showing git status 
+Plug 'Xuyuanp/nerdtree-git-plugin'
+" Extra syntax and highlight for nerdtree files
+Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+" Adds file type icons to Vim plugins
+Plug 'ryanoasis/vim-devicons'
+" A Vim plugin which shows a git diff
+Plug 'airblade/vim-gitgutter'
+" Fuzzy find files
+Plug 'ctrlpvim/ctrlp.vim'
+" Vim plugin for intensely nerdy commenting powers
+Plug 'scrooloose/nerdcommenter'
+" Seamless navigation between tmux panes and vim splits 
+Plug 'christoomey/vim-tmux-navigator'
+" The most advanced TypeScript Syntax Highlighting in Vim
+Plug 'HerringtonDarkholme/yats.vim'
+" Gruxbox colorschema
+Plug 'morhetz/gruvbox'
 
-" Vundle bundles
-Plugin 'altercation/vim-colors-solarized'
-Plugin 'scrooloose/nerdtree'
-Plugin 'scrooloose/nerdcommenter'
-Plugin 'scrooloose/syntastic'
-Plugin 'mileszs/ack.vim'
-Plugin 'junegunn/fzf.vim'
-Plugin 'tpope/vim-fugitive'
-Plugin 'tpope/vim-surround'
-Plugin 'tpope/vim-rails'
-Plugin 'groenewege/vim-less'
-Plugin 'fatih/vim-go'
-Plugin 'pangloss/vim-javascript'
-Plugin 'itchyny/lightline.vim'
-Plugin 'majutsushi/tagbar'
-Plugin 'airblade/vim-gitgutter'
-Plugin 'valloric/youcompleteme'
-Plugin 'yggdroot/indentline'
+" Initialize plugin system
+call plug#end()
 
-call vundle#end()
-" .vimrc commands
-filetype plugin indent on
+" Config for NERD
+inoremap jk <ESC>
+nmap <C-n> :NERDTreeToggle<CR>
+vmap ++ <plug>NERDCommenterToggle
+nmap ++ <plug>NERDCommenterToggle
 
-" Turn on syntax highlighting
-syntax on
+let g:NERDTreeIgnore = ['^node_modules$']
 
-" Encoding
-set encoding=utf-8
+" Config for ctrlp
+let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
 
-" Security
-set modelines=0
+" Config for general
+set relativenumber
 
+set smarttab
+set cindent
 set tabstop=2
 set shiftwidth=2
-set softtabstop=2
+" always uses spaces instead of tab characters
 set expandtab
 
-set scrolloff=3
-set autoindent
-set showmode
-set showcmd
-set hidden
-set wildmenu
-set wildmode=list:longest
-set visualbell
-set cursorline
-set ttyfast
-set ruler
-set backspace=indent,eol,start
-set laststatus=2
-set undofile
-set ignorecase
-set smartcase
-set gdefault
-set incsearch
-set showmatch
-set hlsearch
-set number
-set nobackup
-set nowritebackup
-set noswapfile
+colorscheme gruvbox
 
-" Move up/down editor lines
-nnoremap j gj
-nnoremap k gk
+" sync open file with NERDTree
+" " Check if NERDTree is open or active
+function! IsNERDTreeOpen()
+  return exists("t:NERDTreeBufName") && (bufwinnr(t:NERDTreeBufName) != -1)
+endfunction
 
-set wrap
-set textwidth=79
-set formatoptions=qrn1
-"set colorcolumn=85
+" Call NERDTreeFind iff NERDTree is active, current window contains a modifiable
+" file, and we're not in vimdiff
+function! SyncTree()
+  if &modifiable && IsNERDTreeOpen() && strlen(expand('%')) > 0 && !&diff
+    NERDTreeFind
+    wincmd p
+  endif
+endfunction
 
-"set list
-"set listchars=tab:\|\
+" Highlight currently open buffer in NERDTree
+autocmd BufEnter * call SyncTree()
 
-" For any plugins that use this, make their keymappings use comma
-let mapleader = ","
-let maplocalleader = ","
+" coc config
+let g:coc_global_extensions = [
+  \ 'coc-snippets',
+  \ 'coc-pairs',
+  \ 'coc-tsserver',
+  \ 'coc-eslint',
+  \ 'coc-prettier',
+  \ 'coc-json',
+  \ 'coc-go',
+  \ 'coc-rust-analyzer',
+  \ 'coc-solargraph',
+  \ ]
+" from readme
+" if hidden is not set, TextEdit might fail.
+set hidden " Some servers have issues with backup files, see #649 set nobackup set nowritebackup " Better display for messages set cmdheight=2 " You will have bad experience for diagnostic messages when it's default 4000.
+set updatetime=300
 
-" Colorscheme
-set background=dark
-colorscheme solarized
-set guifont=Inconsolata:h16
-let g:solarized_termcolors=256
+" don't give |ins-completion-menu| messages.
+set shortmess+=c
 
-" FZF (replaces Ctrl-P, FuzzyFinder and Command-T)
-set rtp+=/usr/local/opt/fzf
-set rtp+=~/.fzf
+" always show signcolumns
+set signcolumn=yes
 
-" Tell ack.vim to use ag (the Silver Searcher) instead
-let g:ackprg = 'ag --vimgrep'
+" Use tab for trigger completion with characters ahead and navigate.
+" Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
-"Leader key
-nnoremap <leader>r :Tags<cr>
-nnoremap <leader>t :Files<cr>
-nnoremap <leader>a :Ag 
-" Search in file
-nnoremap / /\v
-vnoremap / /\v
-" Ignore search
-nnoremap <leader><space> :noh<cr>
-nnoremap <leader>h :TagbarToggle<cr>
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
 
-" NerdTree setup
-nnoremap <leader>nt :NERDTreeToggle<cr>
+" Use <c-space> to trigger completion.
+inoremap <silent><expr> <c-space> coc#refresh()
 
-" Lightline
-let g:lightline = {
-\ 'colorscheme': 'wombat',
-\ 'active': {
-\   'left': [['mode', 'paste'], ['filename', 'modified']],
-\   'right': [['lineinfo'], ['percent'], ['readonly', 'linter_warnings', 'linter_errors', 'linter_ok']]
-\ },
-\ 'component_expand': {
-\   'linter_warnings': 'LightlineLinterWarnings',
-\   'linter_errors': 'LightlineLinterErrors',
-\   'linter_ok': 'LightlineLinterOK'
-\ },
-\ 'component_type': {
-\   'readonly': 'error',
-\   'linter_warnings': 'warning',
-\   'linter_errors': 'error'
-\ },
-\ }
+" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
+" Coc only does snippet and additional edit on confirm.
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+" Or use `complete_info` if your vim support it, like:
+" inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
 
-"Syntastic options
-let g:syntastic_javascript_checkers = ['jshint']
-let g:syntastic_python_checkers = ['flake8']
-let g:syntastic_python_flake8_args = '--ignore="E501,E302,E261,E701,E241,E126,E127,E128,W801"'
-let g:syntastic_error_symbol = '✗'
-let g:syntastic_warning_symbol = '!'
-" We redirect output of go build to a tmpdir
-let g:syntastic_go_go_build_args = "-o $TMPDIR"
+" Use `[g` and `]g` to navigate diagnostics
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
 
-" Go modifications
-" Automatically run goimports to add imports post-save
-let g:go_fmt_command = "goimports"
+" Remap keys for gotos
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
 
-" Indenline
-let g:indentLine_color_term = 239
-let g:indentLine_char = '¦'
+" Use K to show documentation in preview window
+nnoremap <silent> K :call <SID>show_documentation()<CR>
 
-" Remove all trailing whitespace by pressing F5
-nnoremap <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
 
-autocmd BufRead *_spec.rb syn keyword rubyRspec describe context it specify it_should_behave_like before after setup subject its shared_examples_for shared_context let
-highlight def link rubyRspec Function
+" Highlight symbol under cursor on CursorHold
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" Remap for rename current word
+nmap <F2> <Plug>(coc-rename)
+
+" Remap for format selected region
+xmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format-selected)
+
+augroup mygroup
+  autocmd!
+  " Setup formatexpr specified filetype(s).
+  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+  " Update signature help on jump placeholder
+  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+augroup end
+
+" Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
+xmap <leader>a  <Plug>(coc-codeaction-selected)
+nmap <leader>a  <Plug>(coc-codeaction-selected)
+
+" Remap for do codeAction of current line
+nmap <leader>ac  <Plug>(coc-codeaction)
+" Fix autofix problem of current line
+nmap <leader>qf  <Plug>(coc-fix-current)
+
+" Create mappings for function text object, requires document symbols feature of languageserver.
+xmap if <Plug>(coc-funcobj-i)
+xmap af <Plug>(coc-funcobj-a)
+omap if <Plug>(coc-funcobj-i)
+omap af <Plug>(coc-funcobj-a)
+
+" Use <C-d> for select selections ranges, needs server support, like: coc-tsserver, coc-python
+nmap <silent> <C-d> <Plug>(coc-range-select)
+xmap <silent> <C-d> <Plug>(coc-range-select)
+
+" Use `:Format` to format current buffer
+command! -nargs=0 Format :call CocAction('format')
+
+" Use `:Fold` to fold current buffer
+command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+
+" use `:OR` for organize import of current buffer
+command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
+
+" Add status line support, for integration with other plugin, checkout `:h coc-status`
+set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+
+" Using CocList
+" Show all diagnostics
+nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
+" Manage extensions
+nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
+" Show commands
+nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
+" Find symbol of current document
+nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
+" Search workspace symbols
+nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
+" Do default action for next item.
+nnoremap <silent> <space>j  :<C-u>CocNext<CR>
+" Do default action for previous item.
+nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
+" Resume latest coc list
+nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
