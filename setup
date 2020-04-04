@@ -6,31 +6,6 @@ ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/
 # Install Git
 brew install git
 
-# Install Vim and MacVim
-Add to .bash_profile: export PATH=/usr/local/bin:$PATH
-brew update
-brew install vim && brew install macvim
-brew link macvim
-
-# Install pip python
-sudo easy_install pip
-
-# Install Vundle
-git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-
-# Install CTags
-brew install ctags
-alias ctags="`brew --prefix`/bin/ctags"
-#try again!
-ctags -R --exclude=.git --exclude=log *
-
-# Install powerline font
-brew tap caskroom/fonts                  # you only have to do this once!
-brew cask install font-inconsolata
-
-# Install template-base16
-https://github.com/chriskempson/base16-vim
-
 # Customize iterm2
 – Solarized theme: http://ethanschoonover.com/solarized
 – .bash_profile file: https://raw.githubusercontent.com/nicolashery/mac-dev-setup/master/.bash_profile
@@ -38,28 +13,10 @@ https://github.com/chriskempson/base16-vim
 – .aliases file: https://raw.githubusercontent.com/nicolashery/mac-dev-setup/master/.aliases
 – .gitconfig file: https://raw.githubusercontent.com/nicolashery/mac-dev-setup/master/.gitconfig
 
-# Install cmake
-brew install cmake
+# Install fzf, fzf.vim, ripgrep
+brew install fzf
 
-# Install YouCompleteMe
-cd ~/.vim/bundle/YouCompleteMe
-./install.py --gocode-completer
-
-# Install sliver search for ack
-brew install the_silver_searcher
-
-# Add ngrok
-Download ngrok and mv to Applications
-# cd into your local bin directory
-cd /usr/local/bin
-
-# create symlink
-ln -s /Applications/ngrok ngrok
-
-# Install meld
-brew cask install meld
-
-# Add meld to .gitconfig
-[merge]
-  tool = meld
+# To install useful key bindings and fuzzy completion:
+$(brew --prefix)/opt/fzf/install
+brew install ripgrep
 
