@@ -1,4 +1,4 @@
- Specify a directory for plugins
+" Specify a directory for plugins
 call plug#begin('~/.vim/plugged')
 
 " Intellisense engine for Vim8 & Neovim, full language server protocol support as VSCode
