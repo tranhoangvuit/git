@@ -1,11 +1,9 @@
-" Specify a directory for plugins
 call plug#begin('~/.vim/plugged')
 
 " Intellisense engine for Vim8 & Neovim, full language server protocol support as VSCode
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " A tree explorer plugin for vim.
-Plug 'scrooloose/nerdtree'
-" A plugin of NERDTree showing git status
+Plug 'scrooloose/nerdtree' " A plugin of NERDTree showing git status
 Plug 'Xuyuanp/nerdtree-git-plugin'
 " Extra syntax and highlight for nerdtree files
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
@@ -24,10 +22,9 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'christoomey/vim-tmux-navigator'
 " The most advanced TypeScript Syntax Highlighting in Vim
 Plug 'HerringtonDarkholme/yats.vim'
-" Gruxbox colorschema
-"Plug 'morhetz/gruvbox'
-" Quantum colorschema
-Plug 'tyrannicaltoucan/vim-quantum'
+" Theme onedark
+Plug 'navarasu/onedark.nvim'
+" Plug 'joshdick/onedark.vim'
 " lean & mean status/tabline for vim that's light as air
 Plug 'vim-airline/vim-airline'
 " A vim plugin to display the indention levels with thin vertical lines
@@ -36,8 +33,9 @@ Plug 'yggdroot/indentline'
 Plug 'majutsushi/tagbar'
 " Go development plugin for Vim
 Plug 'fatih/vim-go'
+" Vim motions on speed
+Plug 'easymotion/vim-easymotion'
 
-" Initialize plugin system
 call plug#end()
 
 " Config for NERD
@@ -47,16 +45,14 @@ nmap <leader>r :NERDTreeFind<CR>
 vmap ++ <plug>NERDCommenterToggle
 nmap ++ <plug>NERDCommenterToggle
 
-" Config for tagbar
-
-let g:ruby_host_prog = '/Users/austintran/.rvm/gems/ruby-2.5.8/bin/neovim-ruby-host'
-
 " open NERDTree automatically
 "autocmd StdinReadPre * let s:std_in=1
 "autocmd VimEnter * NERDTree
 
 let g:NERDTreeGitStatusWithFlags = 1
-let g:NERDTreeShowHidden=1
+let NERDTreeMinimalUI=1
+let g:nerdtree_sync_cursorline = 1
+let g:NERDTreeHighlightCursorline = 1
 
 "let g:WebDevIconsUnicodeDecorateFolderNodes = 1
 "let g:NERDTreeGitStatusNodeColorization = 1
@@ -70,7 +66,7 @@ let g:NERDTreeShowHidden=1
     "\ "Clean"     : "#87939A",
     "\ "Ignored"   : "#808080"
     "\ }
- 
+
 let g:NERDTreeIgnore = ['^node_modules$']
 
 " Nerd commenter config
@@ -107,15 +103,32 @@ set listchars=tab:│·,trail:·,extends:→
 
 set background=dark
 set termguicolors
-" let g:quantum_italics=1
-let g:quantum_black=1
-colorscheme quantum
-let g:airline_theme='quantum'
+colorscheme onedark
+" let g:airline_theme='onedark'
 
 " Indent config
 let g:indentLine_enabled = 1
 let g:indentLine_color_term = 239
 let g:indentLine_char_list = ['|']
+
+" Setup language
+let g:python3_host_prog = '/Library/Frameworks/Python.framework/Versions/3.9/bin/python3'
+let g:ruby_host_prog = '/Users/austintran/.rvm/rubies/ruby-2.7.2/bin/ruby'
+let g:python_host_prog = '/usr/bin/python'
+
+" Go highlight syntax
+let g:go_highlight_fields = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_function_calls = 1
+let g:go_highlight_extra_types = 1
+let g:go_highlight_operators = 1
+
+" easymotion short keys
+nmap <silent> fw <Plug>(easymotion-overwin-f2)
+nmap <silent> gj <Plug>(easymotion-j)
+nmap <silent> gk <Plug>(easymotion-k)
+nmap <silent> fj <Plug>(easymotion-f)
+nmap <silent> fk <Plug>(easymotion-F)
 
 " coc config
 let g:coc_global_extensions = [
